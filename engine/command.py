@@ -1,14 +1,22 @@
 import pyttsx3
 import speech_recognition as sr
 import eel
+# engine = pyttsx3.init()
+# voices = engine.getProperty('voices')
+# print(voices)
+# engine.setProperty('voice', voices[-1].id)
+# engine.say("Voice Assistant Activated")
+# engine.runAndWait()
+
 def speak(text):
     engine = pyttsx3.init()
     voices = engine.getProperty('voices')
-    #print(voices)
-    engine.setProperty('voice', voices[1].id)
+    print(voices)
+    engine.setProperty('voice', voices[0].id)
     engine.setProperty('rate', 170)
     engine.say(text)
     engine.runAndWait()
+speak("JAMAL ASSISTANT Activated")
 
 @eel.expose
 def takeCommand():
