@@ -1,5 +1,5 @@
 import os
-from pipwin import playsound
+from playsound import playsound
 import eel
 
 from engine.command import speak
