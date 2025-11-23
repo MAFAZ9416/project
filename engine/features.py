@@ -1,6 +1,8 @@
 import os
 from playsound import playsound
 import eel
+import pywhatkit as kit
+import re
 #import pygame
 
 from engine.command import speak
@@ -39,5 +41,29 @@ def openCommand(query):
         speak("Opening " + query)
         os.system('start ' + query)
 
+    # elif query != "":
+    #     speak("closing" + query)
+    #     os.system('taskkill /im ' + query + '.exe /f')
+
     else:
         speak(f"{query} not found") 
+
+def playyoutube(query):
+    print(query)
+    search_term = extract_yt_term(query)
+    print(search_term)
+    if search_term:
+        speak("playing " + search_term + " on YouTube")
+        kit.playonyt(search_term)
+
+    else :
+        speak("sorry, Could not find the search term for YouTube")
+
+def extract_yt_term(command):
+    print(command)
+    pattern = r"play\s+(.*?)\s+(?:on\s+youtube|youtube)"
+    print(pattern)
+    match = re.search(pattern, command, re.IGNORECASE)
+    print(match)
+    return match.group(1) if match else None
+    

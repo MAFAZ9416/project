@@ -1,3 +1,4 @@
+import time
 import pyttsx3
 import speech_recognition as sr
 import eel
@@ -11,12 +12,13 @@ import eel
 def speak(text):
     engine = pyttsx3.init()
     voices = engine.getProperty('voices')
-    print(voices)
+    #print(voices)
     engine.setProperty('voice', voices[0].id)
     engine.setProperty('rate', 170)
     engine.say(text)
     engine.runAndWait()
-speak("JAMAL ASSISTANT Activated")
+
+speak("JAMAL Voice Assistant Activated")
 
 @eel.expose
 def takeCommand():
@@ -32,19 +34,22 @@ def takeCommand():
         print('Recognizing...')
         eel.DisplayMessage('Recognizing...')
         query = r.recognize_google(audio, language='en')
+        eel.DisplayMessage(query)
         print(f'User said: {query}')
         #speak(query)
-        eel.DisplayMessage(query)
-        eel.ShowHood()
-
+        time.sleep(2)
+        #eel.DisplayMessage(query)
+        # eel.ShowHood()
+      
     except Exception as e:
         return ""
     
     return query.lower()
 
-# text = takeCommand()
 
+# text = takeCommand()
 # speak(text)
+
 @eel.expose
 def allCommands():
     query = takeCommand()
@@ -53,5 +58,16 @@ def allCommands():
     if 'open' in query:
         from engine.features import openCommand
         openCommand(query)
+    
+    # elif 'close' in query:
+    #     from engine.features import openCommand
+    #     openCommand(query)
+
+    elif 'on youtube' in query:
+        from engine.features import playyoutube
+        playyoutube(query)
+    
     else:
         print('Not run')
+
+    eel.ShowHood()
