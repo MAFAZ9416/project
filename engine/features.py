@@ -54,7 +54,7 @@ def openCommand(query):
                 return
         
             # If not found, try to find the URL in web_command table
-            cursor.execute('SELECT ur1 FROM WEB_PATH WHERE LOWER(name)-?', (query,))
+            cursor.execute('SELECT url FROM WEB_PATH WHERE LOWER(name)= ?', (query,))
             results = cursor.fetchall()
 
             if len(results)!= 0:
