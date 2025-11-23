@@ -3,7 +3,13 @@ from playsound import playsound
 import eel
 import pywhatkit as kit
 import re
+import sqlite3
+import webbrowser
 #import pygame
+
+# Database connection
+conn = sqlite3.connect('JAMAL.db')
+cursor = conn.cursor()
 
 from engine.command import speak
 from engine.config import ASSISTANT_NAME
@@ -34,19 +40,38 @@ def playClickSound():
 
 def openCommand(query):
     query = query.replace(ASSISTANT_NAME, "")
-    query = query.replace("open", "")
-    query.lower()
+    query = query.replace("open", "").strip().lower()
 
-    if query != "":
-        speak("Opening " + query)
-        os.system('start ' + query)
+    if query !="":
+        try:
+            # Try to find the application in sys_command table
+            cursor.execute('SELECT path FROM LOCAL_PATH WHERE LOWER(name)= ?',(query,))
+            results = cursor.fetchall()
 
-    # elif query != "":
-    #     speak("closing" + query)
-    #     os.system('taskkill /im ' + query + '.exe /f')
+            if len(results)!= 0:
+                speak("Opening "+ query)
+                os.startfile(results[0][0])
+                return
+        
+            # If not found, try to find the URL in web_command table
+            cursor.execute('SELECT ur1 FROM WEB_PATH WHERE LOWER(name)-?', (query,))
+            results = cursor.fetchall()
 
-    else:
-        speak(f"{query} not found") 
+            if len(results)!= 0:
+                speak("Opening "+ query)
+                webbrowser.open(results[0][0])
+                return
+            
+            # IF still not found, try to open using os.system
+            speak("Opening "+ query)
+            try:
+                os.system("start " + query)
+            except Exception as e:
+                speak(f"sorry,unable to open {query}.Error : {str(e)}")
+                       
+        except Exception as e:
+            speak(f"somthing went wrong : {str(e)}")
+
 
 def playyoutube(query):
     print(query)
