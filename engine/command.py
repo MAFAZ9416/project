@@ -66,6 +66,10 @@ def allCommands():
     elif 'on youtube' in query:
         from engine.features import playyoutube
         playyoutube(query)
+
+    elif 'on chrome' in query:
+        from engine.features import chrome_search
+        chrome_search(query)
     
     else:
         print('Not run')

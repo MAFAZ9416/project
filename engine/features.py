@@ -92,3 +92,8 @@ def extract_yt_term(command):
     print(match)
     return match.group(1) if match else None
     
+def chrome_search(query):
+    command = query.replace("search", "").replace("on chrome", "").strip()
+    speak("Searching "+ command + " on Chrome")
+    webbrowser.open(f"https://www.google.com/search?q={command}")
+    
