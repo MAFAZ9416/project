@@ -72,6 +72,6 @@ def allCommands():
         chrome_search(query)
     
     else:
-        print('Not run')
+        speak("Sorry, I didn't understand your command.")
 
     eel.ShowHood()
