@@ -71,6 +71,9 @@ def allCommands():
         from engine.features import chrome_search
         chrome_search(query)
     
+    elif 'thanks' or 'thank you' in query:
+        speak("My pleasure. Always here to help you.")
+
     else:
         speak("Sorry, I didn't understand your command.")
 
