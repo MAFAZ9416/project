@@ -17,7 +17,7 @@ def speak(text):
     engine.setProperty('rate', 170)
     engine.say(text)
     engine.runAndWait()
-
+speak("welcome to jamal mohamed college")
 speak("JAMAL Voice Assistant Activated")
 
 @eel.expose
