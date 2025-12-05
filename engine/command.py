@@ -28,7 +28,7 @@ def takeCommand():
         eel.DisplayMessage('Listening...')
         r.pause_threshold = 1
         r.adjust_for_ambient_noise(source)
-        audio = r.listen(source, timeout=10, phrase_time_limit=6)
+        audio = r.listen(source, timeout=10, phrase_time_limit=10)
     
     try:
         print('Recognizing...')
@@ -67,7 +67,7 @@ def allCommands():
         from engine.features import playyoutube
         playyoutube(query)
 
-    elif 'on chrome' in query:
+    elif 'on chrome'  in query:
         from engine.features import chrome_search
         chrome_search(query)
     
