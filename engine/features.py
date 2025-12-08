@@ -86,7 +86,7 @@ def playyoutube(query):
 
 def extract_yt_term(command):
     print(command)
-    pattern = r"play\s+(.*?)\s+(?:on\s+youtube|youtube)"
+    pattern = r"(?:play\s+)?(.+?)(?:\s+on\s+youtube|youtube)"
     print(pattern)
     match = re.search(pattern, command, re.IGNORECASE)
     print(match)
